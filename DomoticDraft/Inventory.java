@@ -1,74 +1,89 @@
 public class Inventory{
-    private Device devices[] = new Device[20];
+    private Device devices[];
 
 
+    /**
+     * Constructor por defecto de la clase Inventory
+     */
     public Inventory(){
-        int i = 0;
-        for(i=0; i<20; i++){
-            devices[i] = new Device();
-        }
+        devices = new Device[4];
     }
 
-
-
+    
+    /**
+     * Agrega un dispositivo al arreglo de disposivos
+     * @param device
+     */
     public void addDevice(Device device){
-        int i = 0;
-        boolean flag = false;
-        for(i = 0; i<20 && flag ==false; i++){
-            if(devices[i].getFlag() == false){
-                devices[i] = device;
-                flag = true;
-            }
-        }
+        devices = moreInventory(devices);
+        devices[devices.length-1] = device;
     }
 
-    public Device getDevice(int id){
-        int i = 0;
-        boolean flag = false;
-        Device aux = null;
-        for(i = 0; i<20 && flag==false; i++){
-            if(devices[i].getId()==id){
-                aux = devices[i];
-                flag = true;
-            }
+    
+  /**
+   * 
+   * @param devices
+   * @return Devuelve el arreglo de dispositivos aumentado en 1
+   */
+    public Device[] moreInventory(Device devices[]){
+        Device incMemory[] = new Device[devices.length+1];
+
+        for(int i = 0; i < devices.length; i++){
+            incMemory[i] = devices[i];
         }
-        return aux;
+        return incMemory;
     }
 
-    public Device searchDevice(Device device){
-        int i = 0;
-        boolean flag = false;
+    /**
+     * 
+     * @param device
+     * @return El índice del dispositivo a buscar
+     */
 
-        for(i = 0; i<20 && flag==false; i++){
-            if(this.devices[i].equals(device)==true){
-                flag = true;
+    public int searchDevice(Device device){
+        int index = -1;
+        for (int i = 0; i < devices.length; i++){
+            if (devices[i].equals(device)){
+                index = i;
+                break;
             }
         }
-
-        if (flag == true){
-                System.out.println("Existe en la lista");
-                return device;
-        }
-        else{
-            System.out.println("false");
-            return null;
-        }
+        return index;
     }
+
+    
+    /** 
+     * @return El String del conjunto de dispositivos
+     */
+    public String toString(){
+        String output = " ";
+        for(int i = 0; i<devices.length; i++){
+            output = output + devices[i].toString() + "\n";
+        }
+        return output;
+    }
+
+
+    /**
+     * Crea un inventario de dispositivos
+     */
 
 
     public void createInventory(){
-        DeviceSpecs testingSpecs = new DeviceSpecs("top", true, true);
-        Brand brand = Brand.LG;
-        Device device0 = new Device(0, true, "AC", brand, testingSpecs);
+        DeviceSpecs specs0 = new DeviceSpecs(Brand.CARRIER, "ABC", true, true);
+        DeviceSpecs specs1 = new DeviceSpecs(Brand.DAEWO, "CDF", true, false);
+        DeviceSpecs specs2 = new DeviceSpecs(Brand.SAMSUNG, "KLM0", false, true);
+        DeviceSpecs specs3 = new DeviceSpecs(Brand.PANASONIC, "BCP33", false, false);
+
+        Device device0 = new TV(0, true, "TV H1", specs0, 23, true);
         devices[0] = device0;
-        Device device1 = new Device(1, false, "TV", Brand.PANASONIC, testingSpecs);
+        Device device1 = new AC(1, true, "AC H4", specs1, 50, 15);
         devices[1] = device1;
-        Device device2 = new Device(2, false, "AC", Brand.LG, testingSpecs);
+        Device device2 = new Lamp(2, true, "LMP H1", specs2, "Ahorrador", 110);
         devices[2] = device2;
-        Device device3 = new Device(3, false, "Lamp", Brand.LG, testingSpecs);
+        Device device3 = new Cam(3, true, "CAM H3", specs3, true, "24/7", "1234b" );
         devices[3] = device3;
-        Device device4 = new Device(4, false, "Cam", Brand.DAEWO, testingSpecs);
-        devices[4] = device4;
+
     }
     
 }

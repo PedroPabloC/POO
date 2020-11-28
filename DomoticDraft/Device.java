@@ -2,88 +2,130 @@ public class Device {
     private int Id;
     private boolean Status;
     private String Name;
-    private Brand brand ;
     private DeviceSpecs deviceSpecs;
-    private  boolean deviceFlag;
 
+
+    /**
+     * Constructor por defecto de la clase
+     */
     public Device() {
         this.Id = 0;
         this.Status = false;
         this.Name = null;
-        this.brand = null;
         this.deviceSpecs = null;
-        this.deviceFlag = false;
     }
 
-    public Device(int Id, boolean Status, String Name, Brand brand, DeviceSpecs deviceSpecs) {
+
+    /**
+     * Constructor de la clase con parametros
+     * @param Id
+     * @param Status
+     * @param Name
+     * @param deviceSpecs
+     */
+    public Device(int Id, boolean Status, String Name, DeviceSpecs deviceSpecs) {
         this.Id = Id;
         this.Status = Status;
         this.Name = Name;
-        this.brand = brand;
         this.deviceSpecs = deviceSpecs;
-        this.deviceFlag = true;
     }
 
+
+    /**
+     * 
+     * @return int
+     */
     public int getId() {
         return Id;
     }
 
+
+    /**
+     * 
+     * @return boolean
+     */
     public boolean getStatus(){
         return Status;
     }
 
+
+    /**
+     * 
+     * @return String
+     */
     public String getName(){
         return Name;
     }
 
-    public Brand getBrand() {
-        return brand;
-    }
 
+    /**
+     * 
+     * @return DeviceSpecs
+     */
     public DeviceSpecs getDeviceSpecs(){
         return deviceSpecs;
     }
 
-    public boolean getFlag(){
-        return deviceFlag;
-    }
     
+    /**
+     * Set id
+     * @param id
+     */
     public void setId(int id){
         this.Id = id;
     }
 
+
+    /**
+     * Set status
+     * @param status
+     */
     public void setStatus(boolean status) {
         this.Status = status;
     }
     
+
+    /**
+     * Set name
+     * @param Name
+     */
     public void setName(String Name){
         this.Name = Name;
     }
     
-    public void setBrand(Brand brand){
-        this.brand = brand;
-    }
 
+    /**
+     * Set deviceSpecs
+     * @param deviceSpecs
+     */
     public void setDeviceSpecs(DeviceSpecs deviceSpecs){
         this.deviceSpecs = deviceSpecs;
     }
 
+
+    /**
+     * toString modificado para la clase 
+     * @return String de todos los atributos de la clase
+     */
     public String toString(){
         String output;
         output = "ID: " + this.Id +"\n" +
                 "Status: " + this.Status + "\n"+
                 "Name: " + this.Name + "\n" +
-                "Brand: " + this.brand.getBrandName()+ "\n" +
-                "DeviceSpecs: " + this.getDeviceSpecs() +
-                "Device flag: " + this.deviceFlag;
+                "DeviceSpecs: " + this.getDeviceSpecs();
         return output;
     }
 
-    public boolean equals(Device device){
+
+    /**
+     * Clase por defecto modificada que compara dos dispostivos
+     * @return Boolean
+     */
+    public boolean equals(Object o){
         boolean result = false;
-        if((device != null) && (device instanceof Device)){
-            Device d = (Device) device;
-            if((Id == d.Id) && (Status == d.Status)&&(Name == d.Name)&&(brand == d.brand)&&(deviceSpecs == d.deviceSpecs)){
+        if((o != null) && (o instanceof Device)){
+            Device d = (Device) o;
+            if((Id == d.Id) && (Name.equals(d.Name))&&(deviceSpecs.equals(d.deviceSpecs))){
                 result = true;
             }
         }
@@ -92,8 +134,8 @@ public class Device {
 
     public static void main(String[] args) {
         Brand brand = Brand.LG;
-        DeviceSpecs testSpecs = new DeviceSpecs("top", true, true);
-        Device device = new Device(0, true, "AC", brand, testSpecs);
+        DeviceSpecs testSpecs = new DeviceSpecs(brand,"top", true, true);
+        Device device = new Device(0, true, "AC", testSpecs);
         
         System.out.println(device);
         
