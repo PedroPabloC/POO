@@ -19,6 +19,33 @@ public class Inventory{
         devices[devices.length-1] = device;
     }
 
+    public void removeDevice(Device device){
+        boolean flag = false;
+        int auxiliar = 0;
+        for(int i = 0; i<devices.length; i++){
+            if (devices[i].equals(device)){
+                flag = true;
+                auxiliar = i;
+            }
+        }
+    
+        if(flag == true){
+            Device decMemory[] = new Device[devices.length-1];
+            for(int i = auxiliar; i<devices.length-1; i++){
+                devices[i] = devices[i+1];
+            }
+
+            for(int i = 0; i<devices.length-1;i++){
+                decMemory[i] = devices[i];
+            }
+
+            devices = decMemory;
+
+
+            
+        }
+    }
+
     
   /**
    * 
